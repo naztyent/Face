@@ -8,6 +8,12 @@ document.addEventListener("mousemove", (event) => {
     updateEyePosition(rightEye, mouseX, mouseY);
 });
 
+document.addEventListener("touchmove", function(event) {
+    const touch = event.touches[0];
+    updateEyePosition(leftEye, touch.clientX, touch.clientY);
+    updateEyePosition(rightEye, touch.clientX, touch.clientY);
+});
+
 function updateEyePosition(eye, mouseX, mouseY) {
     const { left, top, width, height } = eye.getBoundingClientRect();
     const eyeCenterX = left + width / 2;
@@ -74,16 +80,16 @@ function showRandomSentence() {
 
     setTimeout(() => {
         speechBubble.style.display = "none";
-    }, 5000);
+    }, 3000);
 }
 
-setInterval(showRandomSentence, Math.random() * 10000 + 20000);
+setInterval(showRandomSentence, Math.random() * 10000 + 20000); 
 
 document.body.addEventListener('click', function() {
     var notification = document.getElementById('notification');
-    notification.style.display = 'block'; 
+    notification.style.display = 'block'; // Show the notification
 
     setTimeout(function() {
-        notification.style.display = 'none'; 
+        notification.style.display = 'none';
     }, 10000);
 });
