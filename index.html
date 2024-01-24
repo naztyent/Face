@@ -24,7 +24,7 @@
             opacity: 1;
             transition: opacity 0.5s ease-in-out;
             width: 150px;
-            height: 150px;
+            height: 100px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -51,6 +51,30 @@
             border-radius: 5px;
             z-index: 1;
         }
+        .speech-bubble {
+            display: none; 
+            position: fixed; 
+            right: 50%; 
+            bottom: 400px; 
+            background-color: white;
+            border-radius: 5px;
+            padding: 10px;
+            border: 1px solid #000; 
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            color: black; 
+            z-index: 2; 
+            transform: translateX(50%); 
+        }
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: 100%; 
+            left: 50%;
+            border-width: 10px;
+            border-style: solid;
+            border-color: white transparent transparent transparent;
+            transform: translateX(-50%) rotate(180deg); 
+        }
     </style>
 </head>
 <body>
@@ -58,6 +82,7 @@
         <span id="leftEye" class="eye">☉</span>‿<span id="rightEye" class="eye">☉</span>
     </div>
     <div id="notification" class="notification">Hey dude, what's up?</div>
+    <div id="speechBubble" class="speech-bubble">Hello!</div>
 
     <script src="script.js"></script>
 </body>
