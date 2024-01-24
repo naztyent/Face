@@ -14,8 +14,8 @@
             background-color: #000;
         }
         body, html {
-            overflow: hidden; /* Prevents scrolling */
-            height: 100%; /* Sets the height to fill the viewport */
+            overflow: hidden;
+            height: 100%; 
         }
         #emoticon {
             font-family: 'Courier New', monospace;
@@ -38,7 +38,7 @@
         .eye {
             display: inline-block;
             position: relative;
-            width: 38px; 
+            width: 38px;
             overflow: hidden;
         }
         #leftEye, #rightEye {
@@ -58,39 +58,58 @@
         .speech-bubble {
             display: none; 
             position: fixed; 
-            right: 50%; 
-            bottom: 395px; 
+            min-width: 150px; 
+            max-width: 200px; 
+            padding: 10px;
             background-color: white;
             border-radius: 5px;
-            padding: 10px;
-            border: 1px solid #000; 
+            border: 1px solid #000;
             box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-            color: black; 
-            z-index: 2; 
-            transform: translateX(50%); 
+            color: black;
+            z-index: 2;
+            left: 50%; 
+            bottom: 400px; 
+            transform: translateX(-50%); 
         }
         .speech-bubble::after {
             content: '';
             position: absolute;
             bottom: 100%; 
-            left: 50%;
+            left: 50%; 
             border-width: 10px;
             border-style: solid;
             border-color: white transparent transparent transparent;
-            transform: translateX(-50%) rotate(180deg); 
+            transform: translateX(-50%) rotate(180deg);
         }
         @media (max-width: 600px) {
-        .speech-bubble {
-            right: 50%;
-            bottom: 250px;
-            max-width: 150px;
-            transform: translateX(50%); 
+            .speech-bubble {
+                right: 50%;
+                bottom: 250px; 
+                max-width: 150px;
+                transform: translateX(50%); 
+            }
+            .speech-bubble::after {
+                left: 50%; 
+                transform: translateX(-50%) rotate(180deg); 
+            }
         }
-        .speech-bubble::after {
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .dizzy {
+            animation: spin 0.5s linear infinite;
+        }
+        #levelSystem {
+            position: fixed;
+            top: 10px;
             left: 50%;
-            transform: translateX(-50%) rotate(180deg); 
+            transform: translateX(-50%);
+            color: white; 
+            background-color: black;
+            padding: 10px;
+            border-radius: 5px;
         }
-    }
     </style>
 </head>
 <body>
@@ -99,7 +118,10 @@
     </div>
     <div id="notification" class="notification">Hey dude, what's up?</div>
     <div id="speechBubble" class="speech-bubble">Hello!</div>
-
+    <div id="levelSystem">
+        <span id="level">Level: 1</span>
+        <span id="exp">EXP: 0</span>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

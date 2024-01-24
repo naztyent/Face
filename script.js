@@ -28,6 +28,35 @@ function updateEyePosition(eye, mouseX, mouseY) {
     eye.style.transform = `translate(${eyeX}px, ${eyeY}px)`;
 }
 
+let lastMoveTime = Date.now();
+let moveCount = 0;
+const dizzyThreshold = 1000;
+
+document.addEventListener("mousemove", handleMove);
+document.addEventListener("touchmove", handleMove);
+
+function handleMove() {
+    const now = Date.now();
+    if (now - lastMoveTime < 100) { 
+        moveCount++;
+        if (moveCount > dizzyThreshold) {
+            makeDizzy();
+        }
+    } else {
+        moveCount = 0;
+        stopDizzy();
+    }
+    lastMoveTime = now;
+}
+
+function makeDizzy() {
+    document.getElementById('emoticon').classList.add('dizzy');
+}
+
+function stopDizzy() {
+    document.getElementById('emoticon').classList.remove('dizzy');
+}
+
 const sentences = [
     "Let’s PWN some n00bs!…",
     "New day to PWN the n00bs!",
@@ -86,9 +115,42 @@ setInterval(showRandomSentence, Math.random() * 10000 + 20000);
 
 document.body.addEventListener('click', function() {
     var notification = document.getElementById('notification');
-    notification.style.display = 'block'; // Show the notification
+    notification.style.display = 'block'; 
 
     setTimeout(function() {
-        notification.style.display = 'none';
+        notification.style.display = 'none'; 
     }, 10000);
 });
+
+let exp = parseInt(localStorage.getItem('exp')) || 0;
+let level = parseInt(localStorage.getItem('level')) || 1;
+const expElement = document.getElementById('exp');
+const levelElement = document.getElementById('level');
+
+function updateDisplay() {
+    expElement.textContent = `EXP: ${exp}`;
+    levelElement.textContent = `Level: ${level}`;
+}
+
+function gainEXP() {
+    exp++;
+    updateDisplay();
+
+    if (exp >= 10 * level) {
+        level++;
+        updateDisplay();
+    }
+
+    localStorage.setItem('exp', exp.toString());
+    localStorage.setItem('level', level.toString());
+
+    scheduleNextEXP();
+}
+
+function scheduleNextEXP() {
+    const randomDelay = Math.random() * 5000 + 25000;
+    setTimeout(gainEXP, randomDelay);
+}
+
+updateDisplay();
+scheduleNextEXP();
