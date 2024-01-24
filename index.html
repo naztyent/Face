@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pwnagotchi Faces</title>
+    <title>Pwnagotchi Face</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,32 +20,43 @@
             border: 2px solid #333;
             border-radius: 10px;
             background-color: #000;
-            color: #fff; /* Change the text color to white */
-            opacity: 1; /* Set initial opacity to 1 */
-            transition: opacity 0.5s ease-in-out; /* Smooth transition for the opacity */
-            width: 250px; /* Fixed width */
-            height: 100px; /* Fixed height */
+            color: #fff;
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+            width: 150px;
+            height: 150px;
             display: flex;
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically */
-            text-align: center; /* Align text for multi-line support */
-            overflow: hidden; /* Ensures content does not overflow the box */
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+        .eye {
+            display: inline-block;
+            position: relative;
+            width: 38px; /* Increased width to prevent cutting off */
+            overflow: hidden;
+        }
+        #leftEye, #rightEye {
+            margin: 0 2px; /* Adding some horizontal space between eyes */
         }
         .notification {
-        display: none; /* Hidden by default */
-        position: fixed; /* Position it relative to the viewport */
-        bottom: 20px; /* 20px from the bottom */
-        left: 20px; /* 20px from the left */
-        background-color: #f44336; /* Red background */
-        color: white; /* White text */
-        padding: 15px; /* Some padding */
-        border-radius: 5px; /* Rounded corners */
-        z-index: 1; /* Ensure it's above other items */
-    }
-</style>
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #f44336;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            z-index: 1;
+        }
+    </style>
 </head>
 <body>
-    <span id="emoticon">< ⚆_⚆></span>
+    <div id="emoticon">
+        <span id="leftEye" class="eye">☉</span>‿<span id="rightEye" class="eye">☉</span>
+    </div>
     <div id="notification" class="notification">Hey dude, what's up?</div>
 
     <script src="script.js"></script>
