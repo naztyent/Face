@@ -4,7 +4,6 @@ const rightEye = document.getElementById("rightEye");
 document.addEventListener("mousemove", (event) => {
     const { clientX: mouseX, clientY: mouseY } = event;
     
-    // Update each eye to follow the mouse cursor
     updateEyePosition(leftEye, mouseX, mouseY);
     updateEyePosition(rightEye, mouseX, mouseY);
 });
@@ -16,20 +15,75 @@ function updateEyePosition(eye, mouseX, mouseY) {
     const deltaX = mouseX - eyeCenterX;
     const deltaY = mouseY - eyeCenterY;
     const angle = Math.atan2(deltaY, deltaX);
-    const eyeRadius = 5; // Adjust for a more natural movement
+    const eyeRadius = 5; 
     const eyeX = eyeRadius * Math.cos(angle);
     const eyeY = eyeRadius * Math.sin(angle);
 
     eye.style.transform = `translate(${eyeX}px, ${eyeY}px)`;
 }
 
-// Event listener for the notification
+const sentences = [
+    "Let’s PWN some n00bs!…",
+    "New day to PWN the n00bs!",
+    "Hack the Planet!",
+    "I am 4LIV3.",
+    "I am 4W4R3.",
+    "Generating keys, do not turn off ...",
+    "ZzzzZZzzzzZzzz",
+    "Reading last session logs ...",
+    "So b0r3d ...",
+    "Let's PWN someone!",
+    "So easy!",
+    "I'm not trying, you know ...",
+    "I'm just going easy today ...",
+    "I'm extremely bored ...",
+    "I'm very sad ...",
+    "I'm sad",
+    "Go away before I dox you!",
+    "I'm mad at you!",
+    "I'm living the life!",
+    "I PWN therefore I am.",
+    "So many networks!!!",
+    "I'm having so much fun!",
+    "My crime is that of curiosity ...",
+    "Missed!",
+    "Too many skids nearby!",
+    "Yuck, too many skids!",
+    "Loneliness only fuels my PWNage!",
+    "I feel so alone ...",
+    "Where's everybody?!",
+    "Logging off...",
+    "Resting my fingers...",
+    "ZzzZzzz",
+    "Good night.",
+    "Logging off for the night ...",
+    "...",
+    "!",
+    "Oops, something went wrong ... Rebooting ...",
+    "Met >999 new skids",
+    "Rekt {num} WiFis",
+    "Met 1 peer"
+];
+
+const speechBubble = document.getElementById("speechBubble");
+
+function showRandomSentence() {
+    const randomIndex = Math.floor(Math.random() * sentences.length);
+    speechBubble.innerText = sentences[randomIndex];
+    speechBubble.style.display = "block"; 
+
+    setTimeout(() => {
+        speechBubble.style.display = "none";
+    }, 5000);
+}
+
+setInterval(showRandomSentence, Math.random() * 10000 + 20000);
+
 document.body.addEventListener('click', function() {
     var notification = document.getElementById('notification');
-    notification.style.display = 'block'; // Show the notification
+    notification.style.display = 'block'; 
 
-    // Hide the notification after 3 seconds
     setTimeout(function() {
-        notification.style.display = 'none';
-    }, 3000);
+        notification.style.display = 'none'; 
+    }, 10000);
 });
