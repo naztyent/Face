@@ -34,11 +34,11 @@
         .eye {
             display: inline-block;
             position: relative;
-            width: 38px; /* Increased width to prevent cutting off */
+            width: 38px; 
             overflow: hidden;
         }
         #leftEye, #rightEye {
-            margin: 0 2px; /* Adding some horizontal space between eyes */
+            margin: 0 2px;
         }
         .notification {
             display: none;
@@ -55,7 +55,7 @@
             display: none; 
             position: fixed; 
             right: 50%; 
-            bottom: 390px; 
+            bottom: 395px; 
             background-color: white;
             border-radius: 5px;
             padding: 10px;
@@ -75,6 +75,19 @@
             border-color: white transparent transparent transparent;
             transform: translateX(-50%) rotate(180deg); 
         }
+        @media (max-width: 600px) {
+        .speech-bubble {
+            font-size: 14px;
+            right: 10px;
+            bottom: 150px;
+            transform: translateX(0);
+            width: calc(100% - 20px);
+        }
+
+        .speech-bubble::after {
+            left: 90%;
+        }
+    }
     </style>
 </head>
 <body>
