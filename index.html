@@ -13,6 +13,10 @@
             height: 100vh;
             background-color: #000;
         }
+        body, html {
+            overflow: hidden; /* Prevents scrolling */
+            height: 100%; /* Sets the height to fill the viewport */
+        }
         #emoticon {
             font-family: 'Courier New', monospace;
             font-size: 48px;
@@ -78,11 +82,10 @@
         @media (max-width: 600px) {
         .speech-bubble {
             right: 50%;
-            bottom: 220px;
+            bottom: 215px;
             max-width: 150px;
             transform: translateX(50%); 
         }
-
         .speech-bubble::after {
             left: 50%;
             transform: translateX(-50%) rotate(180deg); 
