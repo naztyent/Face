@@ -77,13 +77,15 @@
         }
         @media (max-width: 600px) {
         .speech-bubble {
-            right: 10px;
+            right: 50%;
             bottom: 100px;
             max-width: 150px;
+            transform: translateX(50%); 
         }
 
         .speech-bubble::after {
             left: 50%;
+            transform: translateX(-50%) rotate(180deg); 
         }
     }
     </style>
