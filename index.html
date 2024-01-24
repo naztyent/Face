@@ -93,12 +93,13 @@
                 transform: translateX(-50%) rotate(180deg); 
             }
         }
-        @keyframes spin {
+        @keyframes spinEyes {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        .dizzy {
-            animation: spin 0.5s linear infinite;
+
+        .dizzy .eye {
+            animation: spinEyes 0.5s linear infinite;
         }
         #levelSystem {
             position: fixed;
