@@ -1,24 +1,29 @@
-const emoticons = ["< ⚆_⚆>", "<☉_☉ >", "< ◕‿◕>", "<◕‿◕ >", "<⇀‿‿↼>", "<≖‿‿≖>", "<◕‿‿◕>", "<-__->", "<°▃▃°>", "<⌐■_■>", "<•‿‿•>", "<ᵔ◡◡ᵔ>", "<^‿‿^>", "<☼‿‿☼>", "<≖__≖>", "<✜‿‿✜>", "<ب__ب>", "<╥☁╥ >", "<-_-'>", "<♥‿‿♥>", "<☓‿‿☓>", "<#__#>", "<1__0>", "<1__1>", "<0__1>"];
-const emoticonElement = document.getElementById('emoticon');
+const leftEye = document.getElementById("leftEye");
+const rightEye = document.getElementById("rightEye");
 
-function changeEmoticon() {
-    // Fade out the emoticon
-    emoticonElement.style.opacity = 0;
+document.addEventListener("mousemove", (event) => {
+    const { clientX: mouseX, clientY: mouseY } = event;
+    
+    // Update each eye to follow the mouse cursor
+    updateEyePosition(leftEye, mouseX, mouseY);
+    updateEyePosition(rightEye, mouseX, mouseY);
+});
 
-    setTimeout(() => {
-        // Get a random emoticon
-        const randomIndex = Math.floor(Math.random() * emoticons.length);
-        emoticonElement.innerText = emoticons[randomIndex];
+function updateEyePosition(eye, mouseX, mouseY) {
+    const { left, top, width, height } = eye.getBoundingClientRect();
+    const eyeCenterX = left + width / 2;
+    const eyeCenterY = top + height / 2;
+    const deltaX = mouseX - eyeCenterX;
+    const deltaY = mouseY - eyeCenterY;
+    const angle = Math.atan2(deltaY, deltaX);
+    const eyeRadius = 5; // Adjust for a more natural movement
+    const eyeX = eyeRadius * Math.cos(angle);
+    const eyeY = eyeRadius * Math.sin(angle);
 
-        // Fade in the new emoticon
-        emoticonElement.style.opacity = 1;
-    }, 500); // This should match half of the transition time in CSS
+    eye.style.transform = `translate(${eyeX}px, ${eyeY}px)`;
 }
 
-// Initial display and fade-in of the first emoticon
-changeEmoticon();
-setInterval(changeEmoticon, 3000); // Change emoticon every 3 seconds
-
+// Event listener for the notification
 document.body.addEventListener('click', function() {
     var notification = document.getElementById('notification');
     notification.style.display = 'block'; // Show the notification
