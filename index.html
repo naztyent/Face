@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pwnagotchi Faces</title>
+    <title>Emoticon Display</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -25,13 +25,6 @@
 <body>
     <span id="emoticon">< ⚆_⚆></span>
 
-    <script>
-        const emoticons = ["< ⚆_⚆>", "<☉_☉ >", "< ◕‿◕>", "<◕‿◕ >", "<⇀‿‿↼>", "<≖‿‿≖>", "<◕‿‿◕>", "<-__->", "<°▃▃°>", "<⌐■_■>", "<•‿‿•>", "<ᵔ◡◡ᵔ>", "<^‿‿^>", "<☼‿‿☼>", "<≖__≖>", "<✜‿‿✜>", "<ب__ب>", "<╥☁╥ >", "<-_-'>", "<♥‿‿♥>", "<☓‿‿☓>", "<#__#>", "<1__0>", "<1__1>", "<0__1>"];
-        function changeEmoticon() {
-            const randomIndex = Math.floor(Math.random() * emoticons.length);
-            document.getElementById('emoticon').innerText = emoticons[randomIndex];
-        }
-        setInterval(changeEmoticon, 2000); // Change emoticon every 2 seconds
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
