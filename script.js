@@ -67,7 +67,6 @@ const sentences = [
     "!",
     "Oops, something went wrong ... Rebooting ...",
     "Met >999 new skids",
-    "Rekt {num} WiFis",
     "Met 1 peer"
 ];
 
