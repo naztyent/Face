@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emoticon Display</title>
+    <title>Pwnagotchi Faces</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,19 +11,42 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f0f0f0;
+            background-color: #000;
         }
         #emoticon {
+            font-family: 'Courier New', monospace;
             font-size: 48px;
             padding: 20px;
             border: 2px solid #333;
             border-radius: 10px;
-            background-color: #fff;
+            background-color: #000;
+            color: #fff; /* Change the text color to white */
+            opacity: 1; /* Set initial opacity to 1 */
+            transition: opacity 0.5s ease-in-out; /* Smooth transition for the opacity */
+            width: 250px; /* Fixed width */
+            height: 100px; /* Fixed height */
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            text-align: center; /* Align text for multi-line support */
+            overflow: hidden; /* Ensures content does not overflow the box */
         }
-    </style>
+        .notification {
+        display: none; /* Hidden by default */
+        position: fixed; /* Position it relative to the viewport */
+        bottom: 20px; /* 20px from the bottom */
+        left: 20px; /* 20px from the left */
+        background-color: #f44336; /* Red background */
+        color: white; /* White text */
+        padding: 15px; /* Some padding */
+        border-radius: 5px; /* Rounded corners */
+        z-index: 1; /* Ensure it's above other items */
+    }
+</style>
 </head>
 <body>
     <span id="emoticon">< ⚆_⚆></span>
+    <div id="notification" class="notification">Hey dude, what's up?</div>
 
     <script src="script.js"></script>
 </body>
