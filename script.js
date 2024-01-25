@@ -7,21 +7,12 @@ const isMobile = window.matchMedia("only screen and (max-width: 760px)").matches
 const dizzyThreshold = isMobile ? 100 : 1000; // Lower threshold for mobile
 
 document.addEventListener("mousemove", (event) => {
-    const now = Date.now();
-    if (now - lastMoveTime < 100) { // 100 ms for rapid movement
-        moveCount++;
-        if (moveCount > dizzyThreshold) {
-            makeDizzy();
-        }
-    } else {
-        moveCount = 0;
-        stopDizzy();
-    }
-    lastMoveTime = now;
+    handleMove(); // Consolidate move handling
+    updateEyePosition(leftEye, event.clientX, event.clientY);
+    updateEyePosition(rightEye, event.clientX, event.clientY);
 });
 
 document.addEventListener("touchmove", function(event) {
-    // Get touch coordinates
     const touch = event.touches[0];
     updateEyePosition(leftEye, touch.clientX, touch.clientY);
     updateEyePosition(rightEye, touch.clientX, touch.clientY);
@@ -71,9 +62,6 @@ function handleMove() {
     }
     lastMoveTime = now;
 }
-// Attach the event listener to mousemove and touchmove
-document.addEventListener("mousemove", handleMove);
-document.addEventListener("touchmove", handleMove);
 
 const sentences = [
     "Let’s PWN some n00bs!…",
