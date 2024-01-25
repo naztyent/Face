@@ -14,8 +14,8 @@
             background-color: #000;
         }
         body, html {
-            overflow: hidden;
-            height: 100%; 
+            overflow: hidden; /* Prevents scrolling */
+            height: 100%; /* Sets the height to fill the viewport */
         }
         #emoticon {
             font-family: 'Courier New', monospace;
@@ -38,11 +38,11 @@
         .eye {
             display: inline-block;
             position: relative;
-            width: 38px;
+            width: 38px; /* Increased width to prevent cutting off */
             overflow: hidden;
         }
         #leftEye, #rightEye {
-            margin: 0 2px;
+            margin: 0 2px; /* Adding some horizontal space between eyes */
         }
         .notification {
             display: none;
@@ -56,10 +56,10 @@
             z-index: 1;
         }
         .speech-bubble {
-            display: none; 
-            position: fixed; 
-            min-width: 150px; 
-            max-width: 200px; 
+            display: none; /* Initially hidden */
+            position: fixed; /* Fixed positioning */
+            min-width: 150px; /* Set a minimum width */
+            max-width: 200px; /* Set a maximum width */
             padding: 10px;
             background-color: white;
             border-radius: 5px;
@@ -67,55 +67,83 @@
             box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
             color: black;
             z-index: 2;
-            left: 50%; 
-            bottom: 400px; 
-            transform: translateX(-50%); 
+            left: 50%; /* Center horizontally */
+            bottom: 400px; /* Position above the emoticon */
+            transform: translateX(-50%); /* Adjust for centering */
         }
         .speech-bubble::after {
             content: '';
             position: absolute;
-            bottom: 100%; 
-            left: 50%; 
+            bottom: 100%; /* Position the arrow at the bottom of the bubble */
+            left: 50%; /* Center the arrow */
             border-width: 10px;
             border-style: solid;
             border-color: white transparent transparent transparent;
-            transform: translateX(-50%) rotate(180deg);
+            transform: translateX(-50%) rotate(180deg); /* Adjust for the arrow to point downwards */
         }
+        /* Responsive adjustments for smaller screens */
         @media (max-width: 600px) {
             .speech-bubble {
-                right: 50%;
-                bottom: 250px; 
-                max-width: 150px;
+                right: 50%; /* Closer to the edge for small screens */
+                bottom: 250px; /* Adjust the vertical position for mobile */
+                max-width: 150px; /* Smaller maximum width for smaller screens */
                 transform: translateX(50%); 
+                /* You can also adjust padding, font-size etc., if needed */
             }
             .speech-bubble::after {
-                left: 50%; 
+                left: 50%; /* Center the arrow for the mobile view */
                 transform: translateX(-50%) rotate(180deg); 
+                /* Adjust the transform property if needed to align the arrow */
             }
         }
-        @keyframes spinEyes {
+        @keyframes spinNormal {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
-        .dizzy .eye {
-            animation: spinEyes 0.5s linear infinite;
+        @keyframes spinReverse {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+
+        .spinNormal {
+            animation: spinNormal 0.5s linear infinite;
+        }
+
+        .spinReverse {
+            animation: spinReverse 0.5s linear infinite;
         }
         #levelSystem {
             position: fixed;
             top: 10px;
             left: 50%;
             transform: translateX(-50%);
-            color: white; 
-            background-color: black;
+            color: white; /* or any color you prefer */
+            background-color: black; /* or any color you prefer */
             padding: 10px;
             border-radius: 5px;
+        }
+        #ouchBox {
+            display: none; /* Hidden by default */
+            position: absolute; /* Position relative to the emoticon */
+            top: 450px; /* Adjust as needed */
+            left: 50%; /* Center horizontally */
+            transform: translateX(-50%); /* Adjust for centering */
+            background-color: red;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
     <div id="emoticon">
         <span id="leftEye" class="eye">☉</span>‿<span id="rightEye" class="eye">☉</span>
+        <div id="ouchBox" class="hidden">Ouch!</div>
     </div>
     <div id="notification" class="notification">Hey dude, what's up?</div>
     <div id="speechBubble" class="speech-bubble">Hello!</div>
@@ -123,6 +151,7 @@
         <span id="level">Level: 1</span>
         <span id="exp">EXP: 0</span>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
