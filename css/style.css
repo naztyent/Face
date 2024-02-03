@@ -1,0 +1,165 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #000;
+}
+
+body, html {
+    overflow: hidden; /* Prevents scrolling */
+    height: 100%; /* Sets the height to fill the viewport */
+}
+
+#emoticon {
+    font-family: 'Courier New', monospace;
+    font-size: 48px;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background-color: #000;
+    color: #fff;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    width: 150px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.eye {
+    display: inline-block;
+    position: relative;
+    width: 38px; /* Increased width to prevent cutting off */
+    overflow: hidden;
+}
+
+#leftEye, #rightEye {
+    margin: 0 2px; /* Adding some horizontal space between eyes */
+}
+
+.notification {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #f44336;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+.speech-bubble {
+    display: none; /* Initially hidden */
+    position: fixed; /* Fixed positioning */
+    min-width: 150px; /* Set a minimum width */
+    max-width: 200px; /* Set a maximum width */
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #000;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    color: black;
+    z-index: 2;
+    left: 50%; /* Center horizontally */
+    bottom: 200px; /* Position above the emoticon */
+    transform: translateX(-50%); /* Adjust for centering */
+}
+
+.speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: 100%; /* Position the arrow at the bottom of the bubble */
+    left: 50%; /* Center the arrow */
+    border-width: 10px;
+    border-style: solid;
+    border-color: white transparent transparent transparent;
+    transform: translateX(-50%) rotate(180deg); /* Adjust for the arrow to point downwards */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+    .speech-bubble {
+        right: 50%; /* Closer to the edge for small screens */
+        bottom: 250px; /* Adjust the vertical position for mobile */
+        max-width: 150px; /* Smaller maximum width for smaller screens */
+        transform: translateX(50%); 
+        /* You can also adjust padding, font-size etc., if needed */
+    }
+    .speech-bubble::after {
+        left: 50%; /* Center the arrow for the mobile view */
+        transform: translateX(-50%) rotate(180deg); 
+        /* Adjust the transform property if needed to align the arrow */
+    }
+}
+
+@keyframes spinNormal {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes spinReverse {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
+}
+
+.spinNormal {
+    animation: spinNormal 0.5s linear infinite;
+}
+
+.spinReverse {
+    animation: spinReverse 0.5s linear infinite;
+}
+
+#levelSystem {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white; /* or any color you prefer */
+    background-color: black; /* or any color you prefer */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#ouchBox {
+    display: none; /* Hidden by default */
+    position: absolute; /* Position relative to the emoticon */
+    top: 285px; /* Adjust as needed */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    background-color: red;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.hidden {
+    display: none;
+}
+
+.barrelRoll {
+    animation: roll 3s linear;
+}
+
+@keyframes roll {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#barrelRollText {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    text-align: center;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    font-size: 24px;
+    z-index: 100;
+}

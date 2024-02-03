@@ -6,16 +6,29 @@ let moveCount = 0;
 const isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
 const dizzyThreshold = isMobile ? 100 : 1000; // Lower threshold for mobile
 
+let lastQuadrant = 0;
+let circleCount = 0;
+let lastDirection = null;
+let lastMouseX = 0;
+let lastMouseY = 0;
+const notification = document.getElementById('notification');
+
+let debounceTimer;
 document.addEventListener("mousemove", (event) => {
-    handleMove(); // Consolidate move handling
-    updateEyePosition(leftEye, event.clientX, event.clientY);
-    updateEyePosition(rightEye, event.clientX, event.clientY);
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+        handleMove();
+        updateEyePosition(leftEye, event.clientX, event.clientY);
+        updateEyePosition(rightEye, event.clientX, event.clientY);
+    }, 10); // Adjust debounce time as needed
 });
 
 document.addEventListener("touchmove", function(event) {
     const touch = event.touches[0];
-    updateEyePosition(leftEye, touch.clientX, touch.clientY);
-    updateEyePosition(rightEye, touch.clientX, touch.clientY);
+    if (touch) {
+        updateEyePosition(leftEye, touch.clientX, touch.clientY);
+        updateEyePosition(rightEye, touch.clientX, touch.clientY);
+    }
 });
 
 function updateEyePosition(eye, mouseX, mouseY) {
@@ -189,7 +202,91 @@ window.addEventListener('devicemotion', (event) => {
     const acceleration = event.accelerationIncludingGravity;
     const totalAcceleration = Math.sqrt(acceleration.x ** 2 + acceleration.y ** 2 + acceleration.z ** 2);
 
-    if (totalAcceleration > 20) { // Threshold for shake detection, adjust as needed
+    const shakeThreshold = isMobile ? 15 : 25; // Adjust these values based on testing
+    if (totalAcceleration > shakeThreshold) {
         makeDizzy();
     }
 });
+
+document.addEventListener("mousemove", (event) => {
+    if (isMouseNearNotification(event.clientX, event.clientY)) {
+        const quadrant = getMouseQuadrant(event.clientX, event.clientY);
+        const direction = getDirection(lastQuadrant, quadrant);
+
+        if (direction && direction !== lastDirection) {
+            if (direction === 'clockwise') {
+                circleCount++;
+                if (circleCount >= 3) {
+                    performBarrelRoll();
+                    circleCount = 0; // Reset the count
+                }
+            }
+            lastDirection = direction;
+        }
+        lastQuadrant = quadrant;
+    }
+});
+
+function getMouseQuadrant(mouseX, mouseY) {
+    const rect = notification.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    if (mouseX < centerX && mouseY < centerY) return 1;
+    if (mouseX >= centerX && mouseY < centerY) return 2;
+    if (mouseX >= centerX && mouseY >= centerY) return 3;
+    if (mouseX < centerX && mouseY >= centerY) return 4;
+}
+
+function getDirection(lastQuadrant, currentQuadrant) {
+    // Define the sequence for clockwise motion
+    const clockwiseSequence = [1, 2, 3, 4, 1];
+    const indexLast = clockwiseSequence.indexOf(lastQuadrant);
+    const indexCurrent = clockwiseSequence.indexOf(currentQuadrant);
+
+    if (indexCurrent === (indexLast + 1) % clockwiseSequence.length) {
+        return 'clockwise';
+    }
+    return null; // No clear direction detected
+}
+
+function isCircularMotion(mouseX, mouseY) {
+    // Get the notification's center position
+    const rect = notification.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    // Calculate the angle between the current and last mouse positions relative to the center
+    const angleLast = Math.atan2(lastMouseY - centerY, lastMouseX - centerX);
+    const angleCurrent = Math.atan2(mouseY - centerY, mouseX - centerX);
+
+    // Calculate the change in angle
+    let angleChange = angleCurrent - angleLast;
+
+    // Adjust for the discontinuity at PI
+    if (angleChange > Math.PI) {
+        angleChange -= 2 * Math.PI;
+    } else if (angleChange < -Math.PI) {
+        angleChange += 2 * Math.PI;
+    }
+
+    // Check if the angle change is significant enough to consider as part of a circular motion
+    // This threshold can be adjusted based on sensitivity preferences
+    const angleThreshold = 0.1; // Adjust as needed
+    return Math.abs(angleChange) > angleThreshold;
+}
+
+function performBarrelRoll() {
+    const emoticon = document.getElementById('emoticon');
+    emoticon.classList.add('barrelRoll');
+
+    const barrelRollText = document.createElement('div');
+    barrelRollText.innerText = "Do a barrel roll!";
+    barrelRollText.id = "barrelRollText";
+    document.body.appendChild(barrelRollText);
+
+    setTimeout(() => {
+        emoticon.classList.remove('barrelRoll');
+        barrelRollText.remove();
+    }, 3000); // Duration of the barrel roll and message display
+}
