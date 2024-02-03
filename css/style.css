@@ -143,23 +143,3 @@ body, html {
     display: none;
 }
 
-.barrelRoll {
-    animation: roll 3s linear;
-}
-
-@keyframes roll {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-#barrelRollText {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    text-align: center;
-    background-color: black;
-    color: white;
-    padding: 10px;
-    font-size: 24px;
-    z-index: 100;
-}
