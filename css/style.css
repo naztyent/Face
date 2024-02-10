@@ -86,14 +86,14 @@ body, html {
 @media (max-width: 600px) {
     .speech-bubble {
         right: 50%; /* Closer to the edge for small screens */
-        bottom: 250px; /* Adjust the vertical position for mobile */
+        bottom: 200px; /* Adjust the vertical position for mobile */
         max-width: 150px; /* Smaller maximum width for smaller screens */
         transform: translateX(50%); 
         /* You can also adjust padding, font-size etc., if needed */
     }
     .speech-bubble::after {
         left: 50%; /* Center the arrow for the mobile view */
-        transform: translateX(-50%) rotate(180deg); 
+        transform: translateX(-50%) translateY(-100%);
         /* Adjust the transform property if needed to align the arrow */
     }
 }
@@ -109,11 +109,11 @@ body, html {
 }
 
 .spinNormal {
-    animation: spinNormal 0.5s linear infinite;
+    animation: spinNormal 1s linear infinite; /* Adjusted from 0.5s to 1s for a slower spin */
 }
 
 .spinReverse {
-    animation: spinReverse 0.5s linear infinite;
+    animation: spinReverse 1s linear infinite; /* Adjusted from 0.5s to 1s for a slower spin */
 }
 
 #levelSystem {
